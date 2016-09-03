@@ -3,9 +3,11 @@ require 'bike'
 
 describe DockingStation do  
 
+  let(:bike) { Bike.new }
+
   describe '#initialization' do
     
-    let(:bike) { Bike.new }
+    let(:docking_station) { DockingStation.new(50)}
     
     it 'defaults capacity' do
       subject.capacity.times { subject.dock(bike) }
@@ -13,7 +15,6 @@ describe DockingStation do
     end
 
     it 'has a variable capacity' do
-      docking_station = DockingStation.new(50)
       50.times { docking_station.dock(bike) }
       expect{ docking_station.dock(bike) }.to raise_error 'Docking station full'
     end
@@ -25,7 +26,7 @@ describe DockingStation do
     it { is_expected.to respond_to :release_bike }
 
     it 'releases working bikes' do
-      subject.dock(Bike.new)
+      subject.dock(bike)
       expect(subject.release_bike).to be_working
     end
     
@@ -34,7 +35,6 @@ describe DockingStation do
     end
 
     it 'should not release a bike if the bike is broken' do
-      bike = Bike.new
       bike.report_broken
       subject.dock(bike)
       expect(subject.release_bike).not_to eq bike
@@ -47,13 +47,12 @@ describe DockingStation do
     it { is_expected.to respond_to(:dock).with(1).argument }
 
     it 'docks a bike' do
-      bike = Bike.new
       expect(subject.dock(bike)).to include(bike)
     end
     
     it 'raises an error when the dock station is full and trying to dock' do
-      subject.capacity.times { subject.dock(Bike.new) }
-      expect { subject.dock Bike.new }.to raise_error 'Docking station full'
+      subject.capacity.times { subject.dock(bike) }
+      expect { subject.dock(bike)}.to raise_error 'Docking station full'
     end
   end
 end

@@ -17,7 +17,8 @@ describe Bike do
    		subject.report_broken
    		expect(subject.broken?).to eq true
    	end
-   	it 'should set the bike to not working' do
+   	
+    it 'should set the bike to not working' do
    		expect(subject.working?).to eq true
    		subject.report_broken
    		expect(subject.working?).to eq false
