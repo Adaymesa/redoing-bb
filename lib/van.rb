@@ -1,4 +1,5 @@
 require_relative 'docking_station'
+require_relative 'garage'
 
 class Van
 
@@ -17,5 +18,7 @@ class Van
    	garage.receive_broken(bikes)
 	end
 
-	
+  def remove_broken_bikes
+    @bikes = @bikes.reject{|bike| bike.broken?}
+  end
 end

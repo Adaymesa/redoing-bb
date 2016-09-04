@@ -10,6 +10,7 @@ class Garage
 
 	def receive_broken(van)
 		@bikes = van.bikes.select{|bike| bike}
+		van.remove_broken_bikes
   end
 
   # def fix(broken_bikes)
